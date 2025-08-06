@@ -17,3 +17,20 @@ exports.contact = async(req,res)=>{
     }
     res.render('pages/contact',{locals});
 }
+
+
+
+//Admin End //
+
+exports.Admin_home = async(req,res)=>{
+     const locals={
+        title:"Admin"
+    }
+    res.render('admin/index',{locals});
+}
+exports.Admin_login = async(req,res)=>{
+     const locals={
+        title:"Admin-Login"
+    }
+    res.render('admin/sign-in',{locals});
+}
