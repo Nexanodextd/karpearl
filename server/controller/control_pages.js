@@ -1,3 +1,5 @@
+ const Admin_model = require('../models/admin_login');
+
 exports.home= async(req,res)=>{
     const locals={
         title:"Home"
@@ -26,11 +28,17 @@ exports.Admin_home = async(req,res)=>{
      const locals={
         title:"Admin"
     }
-    res.render('admin/index',{locals});
+     const getID = req.admin.id;
+     const getAdmin = await Admin_model.findOne({_id:getID},{username:1})
+    res.render('admin/index',{locals,getAdmin});
 }
 exports.Admin_login = async(req,res)=>{
      const locals={
         title:"Admin-Login"
     }
     res.render('admin/sign-in',{locals});
+}
+exports.Admin_logout = async(req,res)=>{
+     res.clearCookie("jwt");
+    res.redirect('/login');
 }
