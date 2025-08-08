@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
  const controlpages = require('../controller/control_pages');
 const admin_token_verify = require('../middleware/verify_admin_token');
+
+
+
 router.get('/',controlpages.home)
 router.get('/about',controlpages.about)
 router.get('/contact',controlpages.contact)
-
+router.get('/volunteer',controlpages.volunteer);
 
 
 //ADMIN END //

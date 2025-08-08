@@ -19,7 +19,12 @@ exports.contact = async(req,res)=>{
     }
     res.render('pages/contact',{locals});
 }
-
+exports.volunteer = async(req,res)=>{
+    const locals={
+        title:"Volunteer"
+    }
+    res.render('pages/volunteer',{locals});
+}
 
 
 //Admin End //

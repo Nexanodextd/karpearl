@@ -48,5 +48,11 @@ exports.login = async(req,res)=>{
     
 }
 
+exports.eventUplaod = async(req,res)=>{
+    
+    console.log(req.body);
+
+
+}
 
 
