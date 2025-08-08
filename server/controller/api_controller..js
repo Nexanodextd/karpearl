@@ -48,6 +48,11 @@ exports.login = async(req,res)=>{
     
 }
 
+exports.volunteer = async(req,res)=>{
+    console.log(req.body);
+    res.json({success:"saved"});
+}
+
 exports.eventUplaod = async(req,res)=>{
     
     console.log(req.body);
