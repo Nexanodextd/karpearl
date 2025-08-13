@@ -25,7 +25,14 @@ exports.volunteer = async(req,res)=>{
     }
     res.render('pages/volunteer',{locals});
 }
+exports.donation = async(req,res)=>{
 
+     const locals={
+        title:"Donation"
+    }
+    res.render('pages/donation',{locals});
+
+}
 
 //Admin End //
 

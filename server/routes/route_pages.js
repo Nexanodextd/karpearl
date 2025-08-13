@@ -9,6 +9,7 @@ router.get('/',controlpages.home)
 router.get('/about',controlpages.about)
 router.get('/contact',controlpages.contact)
 router.get('/volunteer',controlpages.volunteer);
+router.get('/donation',controlpages.donation);
 
 
 //ADMIN END //
