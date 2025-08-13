@@ -148,6 +148,7 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/donation.js"></script>
    
      <script>
         $(document).ready(function(){
@@ -226,6 +227,45 @@
 
         })
         //end of news letter subscription
+
+        $('#donation_form').on('submit',function(e){
+     e.preventDefault(e);
+     let name =$('#name').val();
+     let address =$('#address').val();
+     let city = $('#city').val();
+      let country = $('#country').val();
+       let phone_number = $('#phone_number').val();
+      let email = $('#email').val();
+        let amount = $('#amount').val();
+     $.ajax({
+            url: '/api/donation', // same origin
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({name,address,city,country,phone_number,email,amount }),
+            success: function(response) {
+                if(response.status==200){
+                    $('#msg').html(`<p class='alert alert-success' >${response.data}</p>`);
+                   $('#msg').fadeOut(10000);
+                    // console.log('Login successful:', response.token);
+                }else if(response.status==201){
+                     $('#msg').html(`<p class='alert alert-success' >${response.data}</p>`);
+                  // $('#msg').fadeOut(10000);
+                }
+                else{
+                     $('#smsg').html(`<p class='alert alert-danger'>${response.data}</p>`);
+                   $('#smsg').fadeOut(10000);
+                }
+        
+            // redirect or show message
+            },
+            error: function(xhr) {
+                $('#msg').html(`<p class='alert alert-danger' style='color:white'>failed to save</p>`);
+               $('#msg').fadeOut(2000);
+            console.error('Login failed:', xhr.status, xhr.responseText);
+            }
+        });
+
+ });
         })
      </script>
     </body>

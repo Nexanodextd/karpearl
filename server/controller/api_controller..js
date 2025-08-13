@@ -2,6 +2,8 @@ const Admin_model = require('../models/admin_login');
 const Volunteer_model = require('../models/volunteer');
 const Newsletter_model = require('../models/newsletter_model');
 const number_model = require('../models/numbers');
+const contact_model = require('../models/contact');
+const donation_model = require('../models/donation');
 const jwt = require('jsonwebtoken');
 const { get } = require('mongoose');
 require('dotenv');
@@ -118,6 +120,43 @@ exports.post_numbers = async(req,res)=>{
        }
       
     
+}
+
+exports.contact = async(req,res)=>{
+    const {message,email,subject}=req.body
+    try{
+          const save_contact = await contact_model.create({message:message,email_address:email,subject:subject});
+          if(save_contact){
+             console.log(save_contact);
+                res.json({data:"Thanks for reaching out to us",status:200});
+          }else{
+                    res.json({error:"We are unable to save your contact please try again",status:403});
+          }
+    }catch(err){
+          console.log(err.message)
+    }
+        console.log(req.body) 
+}
+exports.donation = async(req,res)=>{
+      const {name,address,city,country,phone_number,email_address,amount}=req.body 
+      try{
+           const save_donations= await donation_model.create({
+            name:name,
+            address:address,
+            city:city,
+            country:country,
+            phone_number:phone_number,
+            email_address:email_address,
+            amount:amount
+        });
+        if(save_donations){
+            res.json({data:"Donation record saved",status:200});
+        }else{
+                res.json({data:"Donation record not saved",status:403});
+        }
+      }catch(err){
+        console.log(err.message);
+      }
 }
 exports.eventUplaod = async(req,res)=>{
     
