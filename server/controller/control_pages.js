@@ -1,10 +1,17 @@
  const Admin_model = require('../models/admin_login');
+ const Events_model =require('../models/events');
 
 exports.home= async(req,res)=>{
     const locals={
         title:"Home"
     }
-    res.render('pages/index',{locals});
+    try{
+           const getPrograms = await Events_model.find();
+          res.render('pages/index',{locals,getPrograms});
+    }catch(err){
+         console.error(err.messsage)
+    }
+  
 }
 
 exports.about = async(req,res)=>{

@@ -4,55 +4,13 @@ const Newsletter_model = require('../models/newsletter_model');
 const number_model = require('../models/numbers');
 const contact_model = require('../models/contact');
 const donation_model = require('../models/donation');
+const Event_model = require('../models/events');
+const Team_model = require('../models/team');
+const upcoming_model = require('../models/upcoming_events');
 const jwt = require('jsonwebtoken');
 const { get } = require('mongoose');
 require('dotenv');
 
-exports.register_admin = async(req,res)=>{
-      const  username = req.body.username;
-    const password = req.body.password;
-    if(username=="" && password == ""){
-           res.status(400).json({error:"Username and password must filled"})
-    }else{
-         try{
-               const reg = await Admin_model.create({username:username,password:password});
-               if(reg){
-                   res.status(200).json({message:"admin has been uploaded successfully"});
-               }else{
-                    res.status(400).json({error:"unable to register admin"})
-               }
-
-
-         }catch(err){
-            res.status(400).json({error:err.message})
-         }
-    }
-}
-exports.login = async(req,res)=>{
-
-    const  username = req.body.username;
-    const password = req.body.password;
-    if(username=="" && password == ""){
-           res.status(400).json({error:"Username and password must filled"})
-    }else{
-         try{
-              const get_admin = await Admin_model.findOne({username:username,password:password});
-              if(!get_admin){
-                 return res.status(403).json({error:"user not found" });
-              }else{
-                 const token = jwt.sign({id:get_admin._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1h"});
-                 res.cookie("jwt",token,{httpOnly:true,maxAge:36000000});
-                 return res.json({token:token,status:200})
-
-              }
-
-         }catch(err){
-            res.status(400).json({error:err.message})
-         }
-    }
-   
-    
-}
 
 exports.volunteer = async(req,res)=>{
     const {available,first_name,last_name,address,city,country,phone_number,email_address}=req.body;
@@ -158,11 +116,101 @@ exports.donation = async(req,res)=>{
         console.log(err.message);
       }
 }
+
+
+//admin END 
+
+exports.register_admin = async(req,res)=>{
+      const  username = req.body.username;
+    const password = req.body.password;
+    if(username=="" && password == ""){
+           res.status(400).json({error:"Username and password must filled"})
+    }else{
+         try{
+               const reg = await Admin_model.create({username:username,password:password});
+               if(reg){
+                   res.status(200).json({message:"admin has been uploaded successfully"});
+               }else{
+                    res.status(400).json({error:"unable to register admin"})
+               }
+
+
+         }catch(err){
+            res.status(400).json({error:err.message})
+         }
+    }
+}
+exports.login = async(req,res)=>{
+
+    const  username = req.body.username;
+    const password = req.body.password;
+    if(username=="" && password == ""){
+           res.status(400).json({error:"Username and password must filled"})
+    }else{
+         try{
+              const get_admin = await Admin_model.findOne({username:username,password:password});
+              if(!get_admin){
+                 return res.status(403).json({error:"user not found" });
+              }else{
+                 const token = jwt.sign({id:get_admin._id},process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1h"});
+                 res.cookie("jwt",token,{httpOnly:true,maxAge:36000000});
+                 return res.json({token:token,status:200})
+
+              }
+
+         }catch(err){
+            res.status(400).json({error:err.message})
+         }
+    }
+   
+    
+}
+
 exports.eventUplaod = async(req,res)=>{
     
-    console.log(req.body);
+   const { heading } = req.body;
+   const fileName = req.file.filename;
+    try{
+          const save_event = await Event_model.create({heading:heading,filename:fileName});
+          if(save_event){
+                res.json({message:"Event has been saved"});
+          }else{
+              res.json({message:"failed"});
+          }
+    }catch(err){
+        console.error(err.message);
+    }
 
 
 }
-
+exports.teamUpload = async(req,res)=>{
+   const { heading } = req.body;
+   const fileName = req.file.filename;
+    try{
+          const save_event = await Team_model.create({heading:heading,filename:fileName});
+          if(save_event){
+                res.json({message:"Team has been saved"});
+          }else{
+              res.json({message:"failed"});
+          }
+    }catch(err){
+        console.error(err.message);
+    }
+}
+ exports.upcoming_events = async(req,res)=>{
+       const{uptime,update}=req.body
+       const upcoming_heading = req.body.upcoming_heading
+        const fileName = req.file.filename;
+    try{
+        console.log(req.body.up_heading)
+          const save_event = await upcoming_model.create({heading:upcoming_heading,uptime:uptime,update,filename:fileName});
+          if(save_event){
+                res.json({message:"Upcoming has been saved"});
+          }else{
+              res.json({message:"failed"});
+          }
+    }catch(err){
+        console.error(err.message);
+    }
+ }
 
