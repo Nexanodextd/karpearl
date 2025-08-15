@@ -149,6 +149,7 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/donation.js"></script>
+    <script src="assets/js/upcoming.js"></script>
    
      <script>
         $(document).ready(function(){
@@ -265,8 +266,81 @@
             }
         });
 
- });
-        })
+       });
+
+            let currentPage = 1;
+           let totalPages = 1;
+            function loadItems(page) {
+      $.ajax({
+        url: `/api/programs?page=${page}`,
+        method: 'GET',
+        success: function(data) {
+          let html = '';
+          data.items.forEach(item => {
+            html += `
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-cases mb-40">
+                            <div class="cases-img">
+                                <img src="uploads/${item.filename}" alt="" style="height:250px;">
+                            </div>
+                            <div class="cases-caption">
+                                <h3><a href="#">${item.heading}</a></h3>
+                                <!-- Progress Bar -->
+                                <div class="single-skill mb-15">
+                                    <div class="bar-progress">
+                                        <div id="bar1" class="barfiller">
+                                            <div class="tipWrap">
+                                                <span class="tip"></span>
+                                            </div>
+                                            <span class="fill" data-percentage="70"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- / progress -->
+                                <div class="prices d-flex justify-content-between">
+                                   <!-- <a href="/programs" class="alert alert-success" style="color:white;background-color: rgb(116, 242, 116); border:none">View More</a>-->
+                                    <p>Uploaded by:<span> Admin</span></p>
+                                </div>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+            `;
+          });
+          $('#itemsContainer').html(html);
+
+          currentPage = data.currentPage;
+          totalPages = data.totalPages;
+          $('#pageInfo').text(`Page ${currentPage} of ${totalPages}`);
+
+          $('#prevBtn').prop('disabled', currentPage === 1);
+          $('#nextBtn').prop('disabled', currentPage === totalPages);
+        },
+        error: function(err) {
+          $('#itemsContainer').html('Error loading items.');
+        }
+      });
+    }
+
+
+
+    $('#prevBtn').click(function() {
+      if (currentPage > 1) {
+        loadItems(currentPage - 1);
+      }
+    });
+
+    $('#nextBtn').click(function() {
+      if (currentPage < totalPages) {
+        loadItems(currentPage + 1);
+      }
+    });
+
+    // Initial load
+    loadItems(currentPage);
+  })
      </script>
     </body>
 

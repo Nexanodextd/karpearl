@@ -1,5 +1,6 @@
  const Admin_model = require('../models/admin_login');
  const Events_model =require('../models/events');
+ const upcoming_model = require('../models/upcoming_events');
 
 exports.home= async(req,res)=>{
     const locals={
@@ -7,7 +8,8 @@ exports.home= async(req,res)=>{
     }
     try{
            const getPrograms = await Events_model.find();
-          res.render('pages/index',{locals,getPrograms});
+           const upcoming_events = await upcoming_model.find();
+          res.render('pages/index',{locals,getPrograms,upcoming_events});
     }catch(err){
          console.error(err.messsage)
     }
@@ -41,6 +43,21 @@ exports.donation = async(req,res)=>{
 
 }
 
+exports.event_program = async(req,res)=>{
+     const locals={
+        title:"Programs"
+    }
+     res.render('pages/program', {  locals });
+   
+
+}
+exports.upcoming_events =  async(req,res)=>{
+     const locals={
+        title:"Upcoming Events"
+    }
+     res.render('pages/upcomingEvents', {  locals });
+   
+}
 //Admin End //
 
 exports.Admin_home = async(req,res)=>{

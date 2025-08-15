@@ -58,26 +58,16 @@
                         <!-- Section Tittle -->
                         <div class="section-tittle text-center mb-80">
                             <span>What we are doing</span>
-                            <h3>We Are In A Mission To Help The Helpless</h3>
+                            <h3>We Are On A Mission To Help The Helpless</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-cat text-center mb-50">
-                            <div class="cat-icon">
-                                <span class="flaticon-null-1"></span>
-                            </div>
-                            <div class="cat-cap">
-                                <h5><a href="">Treatment</a></h5>
-                                <p>We are committed to ensuring timely and accessible treatment for individuals in need. </p>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-cat active text-center mb-50">
                             <div class="cat-icon">
-                                <span class="flaticon-think"></span>
+                                <img src="assets/img/logo/healthcare.png" style="margin-bottom:2%">
                             </div>
                             <div class="cat-cap">
                                 <h5><a href="">Care</a></h5>
@@ -86,13 +76,24 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-cat text-center mb-50">
+                        <div class="single-cat active text-center mb-50">
                             <div class="cat-icon">
-                                <span class="flaticon-gear"></span>
+                                <img src="assets/img/logo/medical-care.png" style="margin-bottom:2%">
                             </div>
                             <div class="cat-cap">
-                                <h5><a href="services.html">Support</a></h5>
+                                <h5><a href="/donation">Support</a></h5>
                                 <p>Support is at the heart of our mission. We stand beside individuals and families through every challenge, and community outreach. </p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-cat active text-center mb-50">
+                            <div class="cat-icon">
+                                <img src="assets/img/logo/medical.png" style="margin-bottom:2%">
+                            </div>
+                            <div class="cat-cap">
+                                <h5><a href="">Treatment</a></h5>
+                                <p>We are committed to ensuring timely and accessible treatment for individuals in need. </p>
                             </div>
                         </div>
                     </div>
@@ -108,8 +109,8 @@
                         <div class="about-caption mb-50">
                             <!-- Section Tittle -->
                             <div class="section-tittle mb-35">
-                                <span>About our foundetion</span>
-                                <h2>We Are World WIde Organization</h2>
+                                <span>About our foundation</span>
+                                <h2>We Are World Wide Organization</h2>
                             </div>
                             <p>Karpearl Medical Foundation was established on the 15th of March 2014, with the goal of bridging the healthcare gap for vulnerable populations.</p>
                             <p> Our team of dedicated healthcare professionals and volunteers has been working tirelessly to provide quality medical care to those in need.</p>
@@ -144,8 +145,8 @@
                     </div>
                 </div>
                 <div class="row">
-                     <% getPrograms.forEach(function(programs,index) { %>
-                           
+                     <% getPrograms.slice(0,6).forEach(function(programs,index) { %>
+                          
                         <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-cases mb-40">
                             <div class="cases-img">
@@ -166,8 +167,8 @@
                                 </div>
                                 <!-- / progress -->
                                 <div class="prices d-flex justify-content-between">
-                                    <p>Raised:<span> $20,000</span></p>
-                                    <p>Goal:<span> $35,000</span></p>
+                                    <a href="/programs" class="btn btn-success" style="color:white; border:none">View More</a>
+                                    <p>Uploaded by:<span> Admin</span></p>
                                 </div>
                             </div>
 
@@ -190,75 +191,50 @@
                     <div class="col-xl-7 col-lg-9 col-md-10 col-sm-12">
                         <!-- Section Tittle -->
                         <div class="section-tittle text-center mb-80">
-                            <span>What we are boing</span>
-                            <h2>We arrange many social events for charity donations</h2>
+                         
+                            <h2>Upcoming Events</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-lg-9 col-md-12">
+                   
+                    <% upcoming_events.slice(0,3).forEach( function(upcoming) { %>
+                     
+                        <div class="col-lg-9 col-md-12">
                         <!-- single-job-content -->
                         <div class="single-job-items mb-30">
                             <div class="job-items">
                                 <div class="company-img">
-                                    <a href="#"><img src="assets/img/gallery/socialEvents1.png" alt=""></a>
+                                    <a href="/upcoming_events"><img src="uploads/<%= upcoming.filename %>" alt=""></a>
                                 </div>
                                 <div class="job-tittle">
-                                    <a href="#">
-                                        <h4>Donation is Hope</h4>
+                                    <a href="/upcoming_events">
+                                        <h4><%=upcoming.heading %></h4>
                                     </a>
                                     <ul>
-                                        <li><i class="far fa-clock"></i>8:30 - 9:30am</li>
-                                        <li><i class="fas fa-sort-amount-down"></i>18.01.2021</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
+                                        <li><i class="far fa-clock"></i><%= upcoming.uptime %></li>
+                                        <li><i class="fas fa-sort-amount-down"></i><%= upcoming.update %></li>
+                                        <!--<li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>-->
                                     </ul>
+                                    
                                 </div>
+                               
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-12">
-                        <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="#"><img src="assets/img/gallery/socialEvents2.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="#">
-                                        <h4>A hand for Children</h4>
-                                    </a>
-                                    <ul>
-                                        <li><i class="far fa-clock"></i>8:30 - 9:30am</li>
-                                        <li><i class="fas fa-sort-amount-down"></i>18.01.2021</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-12">
-                        <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="#"><img src="assets/img/gallery/socialEvents3.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="#">
-                                        <h4>Help for Children</h4>
-                                    </a>
-                                    <ul>
-                                        <li><i class="far fa-clock"></i>8:30 - 9:30am</li>
-                                        <li><i class="fas fa-sort-amount-down"></i>18.01.2021</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
+
+                    <% }) %>
+                    
+                     
                     
                 </div>
+                 <div class="section-tittle text-center mb-80">
+                         
+                             <a href="/upcoming_events" class="btn btn-success">View More</a>
+                        </div>
+               
             </div>
         </section>
         <!-- Featured_job_end -->
@@ -270,7 +246,7 @@
                         <!-- Section Tittle -->
                         <div class="section-tittle section-tittle2 text-center mb-70">
                             <span>What we are doing</span>
-                            <h2>Our Expert Volunteer Alwyes ready</h2>
+                            <h2>Our Expert Volunteer Always ready</h2>
                         </div>
                     </div>
                 </div>

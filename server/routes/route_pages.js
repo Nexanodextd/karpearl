@@ -10,6 +10,8 @@ router.get('/about',controlpages.about)
 router.get('/contact',controlpages.contact)
 router.get('/volunteer',controlpages.volunteer);
 router.get('/donation',controlpages.donation);
+router.get('/programs',controlpages.event_program);
+router.get('/upcoming_events',controlpages.upcoming_events)
 
 
 //ADMIN END //

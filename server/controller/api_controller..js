@@ -118,6 +118,38 @@ exports.donation = async(req,res)=>{
 }
 
 
+exports.getImages = async(req,res)=>{
+    try{
+              const perpage = 4;
+              const page = parseInt(req.query.page)|| 1;
+              const skip = (page - 1 ) * perpage
+              const totalItem = await Event_model.countDocuments();
+              const totalPages = Math.ceil(totalItem / perpage);
+              const items = await Event_model.find()
+              .skip(skip)
+              .limit(perpage)
+               res.json({items,currentPage:page,totalPages})
+        }catch(err){
+             console.error(err.messsage)
+        }
+}
+
+exports.getupComing = async(req,res)=>{
+    try{
+              const perpage = 4;
+              const page = parseInt(req.query.page)|| 1;
+              const skip = (page - 1 ) * perpage
+              const totalItem = await upcoming_model.countDocuments();
+              const totalPages = Math.ceil(totalItem / perpage);
+              const items = await upcoming_model.find()
+              .skip(skip)
+              .limit(perpage)
+               res.json({items,currentPage:page,totalPages})
+        }catch(err){
+             console.error(err.messsage)
+        }
+}
+
 //admin END 
 
 exports.register_admin = async(req,res)=>{
